@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>thepurpleMedcare</title>
+  <link rel="icon" type="image/png" href="img/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --p: #5B2D8E;
+      --p-dark: #3D1A66;
+      --p-mid: #7B45B0;
+      --p-light: #B08AD4;
+      --p-pale: #F3EDF9;
+      --p-glass: rgba(91,45,142,0.07);
+      --white: #ffffff;
+      --off: #FAFBFE;
+      --text: #1A1628;
+      --muted: #6B6480;
+      --border: rgba(91,45,142,0.13);
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(91,45,142,0.12);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Outfit',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:#f1ecf9}
+    ::-webkit-scrollbar-thumb{background:var(--p-light);border-radius:3px}
+
+     /* ─── NAV ─── */
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:1000}
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      max-width:1280px;margin:0 auto;padding:18px 40px;
+      background:rgba(255,255,255,0.96);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+      box-shadow:0 4px 24px rgba(91,45,142,0.06);
+    }
+    .nav-logo{display:flex;align-items:center;text-decoration:none}
+    .nav-logo img{height:52px;width:auto;object-fit:contain}
+    .nav-links{display:flex;align-items:center;gap:8px;list-style:none}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 16px;border-radius:8px;transition:all .2s ease}
+    .nav-links a:hover{color:var(--p);background:var(--p-pale)}
+    .nav-links a.active{color:var(--p);font-weight:600;background:var(--p-pale)}
+    .nav-cta{background:var(--p)!important;color:#fff!important;border-radius:10px!important;padding:9px 22px!important;transition:all .25s ease!important}
+    .nav-cta:hover{background:var(--p-dark)!important;transform:translateY(-1px);box-shadow:0 6px 20px rgba(91,45,142,0.35)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
+    .hamburger span{width:24px;height:2px;background:var(--p);border-radius:2px}
+    .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(91,45,142,0.97);z-index:2000;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:24px;font-weight:600;color:#fff;text-decoration:none}
+    .mobile-close{position:absolute;top:28px;right:32px;font-size:28px;color:#fff;cursor:pointer}
+
+    /* ─── HERO ─── */
+    #home {
+      min-height:100vh;
+      background: linear-gradient(145deg, #1A0A2E 0%, #3D1A66 40%, #5B2D8E 70%, #8B5FC0 100%);
+      position:relative;overflow:hidden;
+      display:flex;align-items:center;
+    }
+    .hero-bg-shapes{position:absolute;inset:0;pointer-events:none}
+    .hero-bg-shapes .circle{
+      position:absolute;border-radius:50%;
+      background:rgba(255,255,255,0.04);
+    }
+    .hero-bg-shapes .circle:nth-child(1){width:600px;height:600px;top:-200px;right:-150px}
+    .hero-bg-shapes .circle:nth-child(2){width:350px;height:350px;bottom:-100px;left:-80px}
+    .hero-bg-shapes .circle:nth-child(3){width:200px;height:200px;top:40%;right:20%}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px}
+    .hero-content{
+      position:relative;z-index:2;
+      max-width:1280px;margin:0 auto;padding:140px 40px 80px;
+      display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+    }
+    .hero-text .tag{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,0.1);
+      color:rgba(255,255,255,0.9);
+      font-size:13px;font-weight:500;
+      padding:6px 16px;border-radius:50px;
+      border:1px solid rgba(255,255,255,0.15);
+      margin-bottom:28px;
+      backdrop-filter:blur(8px);
+    }
+    .hero-text .tag i{color:var(--p-light);font-size:12px}
+    .hero-text h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(42px,5.5vw,72px);
+      font-weight:700;
+      color:#fff;
+      line-height:1.1;
+      margin-bottom:24px;
+    }
+    .hero-text h1 em{font-style:italic;color:var(--p-light)}
+    .hero-text p{
+      font-size:18px;font-weight:300;color:rgba(255,255,255,0.75);
+      line-height:1.75;margin-bottom:40px;max-width:480px;
+    }
+    .hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+    .btn-primary{
+      background:#fff;color:var(--p);
+      font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;
+      padding:14px 32px;border-radius:12px;border:none;cursor:pointer;
+      text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+      transition:all .25s ease;
+    }
+    .btn-primary:hover{background:var(--p-pale);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+    .btn-outline{
+      background:transparent;color:#fff;
+      font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;
+      padding:14px 32px;border-radius:12px;border:2px solid rgba(255,255,255,0.3);
+      cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+      transition:all .25s ease;
+    }
+    .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,0.08);transform:translateY(-2px)}
+    .hero-cards{display:flex;flex-direction:column;gap:16px}
+    .stat-row{display:flex;gap:16px}
+    .stat-card{
+      flex:1;background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:var(--radius);padding:24px 20px;
+      transition:all .3s ease;
+    }
+    .stat-card:hover{background:rgba(255,255,255,0.13);transform:translateY(-3px)}
+    .stat-card .num{font-size:36px;font-weight:700;color:#fff;line-height:1}
+    .stat-card .num span{font-size:20px;color:var(--p-light)}
+    .stat-card .label{font-size:13px;color:rgba(255,255,255,0.6);margin-top:6px}
+    .feature-card{
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:var(--radius);padding:22px 24px;
+      display:flex;align-items:center;gap:16px;
+      transition:all .3s ease;
+    }
+    .feature-card:hover{background:rgba(255,255,255,0.13);transform:translateX(4px)}
+    .feature-card .icon-wrap{
+      width:48px;height:48px;border-radius:12px;
+      background:rgba(255,255,255,0.12);
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+    .feature-card .icon-wrap i{color:var(--p-light);font-size:20px}
+    .feature-card .fc-text h5{font-size:14px;font-weight:600;color:#fff;margin-bottom:2px}
+    .feature-card .fc-text p{font-size:13px;color:rgba(255,255,255,0.55)}
+
+    /* ─── SECTION BASE ─── */
+    section{padding:100px 40px}
+    .container{max-width:1280px;margin:0 auto}
+    .section-tag{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--p-pale);color:var(--p);
+      font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+      padding:6px 16px;border-radius:50px;margin-bottom:16px;
+    }
+    .section-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(34px,4vw,52px);font-weight:700;
+      color:var(--text);line-height:1.15;margin-bottom:16px;
+    }
+    .section-title em{font-style:italic;color:var(--p)}
+    .section-sub{font-size:17px;color:var(--muted);line-height:1.7;max-width:560px}
+    .divider{width:56px;height:3px;background:linear-gradient(90deg,var(--p),var(--p-light));border-radius:2px;margin:20px 0}
+
+    /* ─── ABOUT ─── */
+    #about{background:var(--off)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .about-visual{position:relative}
+    .about-img-main{
+      width:100%;border-radius:24px;
+      background:linear-gradient(135deg,var(--p-pale),#E8D5F5);
+      height:480px;
+      display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
+    }
+    .about-img-main img{
+      width:100%;height:100%;object-fit:cover;border-radius:24px;
+    }
+    .about-img-main .big-icon{font-size:180px;color:var(--p);opacity:.1;position:absolute}
+    .about-float-card{
+      position:absolute;bottom:-24px;right:-24px;
+      background:#fff;border-radius:16px;padding:20px 24px;
+      box-shadow:var(--shadow);
+      display:flex;align-items:center;gap:14px;
+    }
+    .about-float-card .afc-icon{
+      width:52px;height:52px;background:var(--p-pale);
+      border-radius:12px;display:flex;align-items:center;justify-content:center;
+    }
+    .about-float-card .afc-icon i{color:var(--p);font-size:22px}
+    .about-float-card h5{font-size:22px;font-weight:700;color:var(--p)}
+    .about-float-card p{font-size:12px;color:var(--muted)}
+    .about-float-card2{
+      position:absolute;top:-20px;left:-20px;
+      background:var(--p);border-radius:14px;padding:16px 20px;
+      box-shadow:0 8px 24px rgba(91,45,142,0.4);
+    }
+    .about-float-card2 p{font-size:13px;font-weight:600;color:#fff}
+    .about-float-card2 span{font-size:11px;color:rgba(255,255,255,.65)}
+    .about-pillars{display:flex;flex-direction:column;gap:16px;margin-top:36px}
+    .pillar{
+      display:flex;align-items:flex-start;gap:14px;
+      background:#fff;border-radius:12px;padding:18px 20px;
+      border:1px solid var(--border);transition:all .25s ease;
+    }
+    .pillar:hover{border-color:var(--p-light);box-shadow:0 4px 16px rgba(91,45,142,0.1);transform:translateX(4px)}
+    .pillar .pi{
+      width:40px;height:40px;background:var(--p-pale);
+      border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .pillar .pi i{color:var(--p);font-size:17px}
+    .pillar h5{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px}
+    .pillar p{font-size:13px;color:var(--muted);line-height:1.55}
+
+    /* ─── AVAILABILITY STRIP ─── */
+    .avail-strip{
+      background:linear-gradient(135deg,var(--p-dark),var(--p));
+      padding:60px 40px;
+    }
+    .avail-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+    .avail-title h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#fff;line-height:1.2}
+    .avail-title p{font-size:16px;color:rgba(255,255,255,.65);margin-top:8px}
+    .avail-checks{display:flex;flex-direction:column;gap:12px}
+    .avail-check{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:14px;font-weight:400}
+    .avail-check i{color:var(--p-light);font-size:15px}
+    .avail-cta a{
+      background:#fff;color:var(--p);
+      font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;
+      padding:16px 36px;border-radius:12px;text-decoration:none;
+      display:inline-flex;align-items:center;gap:10px;
+      transition:all .25s ease;
+      box-shadow:0 8px 24px rgba(0,0,0,0.2);
+    }
+    .avail-cta a:hover{background:var(--p-pale);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,0.25)}
+
+    /* ─── SERVICES ─── */
+    #services{background:#fff}
+    .services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;flex-wrap:wrap;gap:24px}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .service-card{
+      background:var(--off);border:1px solid var(--border);
+      border-radius:20px;padding:32px 28px;
+      transition:all .35s ease;position:relative;overflow:hidden;
+    }
+    .service-card::before{
+      content:'';position:absolute;bottom:0;left:0;right:0;
+      height:3px;background:linear-gradient(90deg,var(--p),var(--p-light));
+      transform:scaleX(0);transition:.35s ease;transform-origin:left;
+    }
+    .service-card:hover{background:#fff;border-color:var(--p-light);box-shadow:var(--shadow);transform:translateY(-6px)}
+    .service-card:hover::before{transform:scaleX(1)}
+    .sc-icon{
+      width:60px;height:60px;background:var(--p-pale);
+      border-radius:14px;display:flex;align-items:center;justify-content:center;
+      margin-bottom:22px;transition:all .35s ease;
+    }
+    .sc-icon i{color:var(--p);font-size:24px}
+    .service-card:hover .sc-icon{background:var(--p);transform:scale(1.1) rotate(5deg)}
+    .service-card:hover .sc-icon i{color:#fff}
+    .service-card h4{font-size:17px;font-weight:600;color:var(--text);margin-bottom:10px}
+    .service-card p{font-size:14px;color:var(--muted);line-height:1.65}
+
+    /* ─── APPOINTMENT ─── */
+    #appointment{
+      background:linear-gradient(135deg,#1A0A2E 0%,#3D1A66 50%,#5B2D8E 100%);
+      position:relative;overflow:hidden;
+    }
+    .appt-bg{position:absolute;inset:0;pointer-events:none}
+    .appt-bg .dot{
+      position:absolute;width:300px;height:300px;border-radius:50%;
+      background:rgba(255,255,255,0.03);
+    }
+    .appt-bg .dot:nth-child(1){top:-100px;right:-80px}
+    .appt-bg .dot:nth-child(2){bottom:-80px;left:-60px}
+    .appt-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .appt-info .section-tag{background:rgba(255,255,255,0.12);color:rgba(255,255,255,.8)}
+    .appt-info .section-title{color:#fff}
+    .appt-info .section-sub{color:rgba(255,255,255,.6)}
+    .appt-info .divider{background:linear-gradient(90deg,rgba(255,255,255,.5),transparent)}
+    .appt-perks{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+    .appt-perk{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.75);font-size:14px}
+    .appt-perk i{color:var(--p-light);font-size:16px}
+    .appt-form{
+      background:rgba(255,255,255,0.06);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:24px;padding:40px 36px;
+    }
+    .appt-form h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#fff;margin-bottom:8px}
+    .appt-form p{font-size:14px;color:rgba(255,255,255,.55);margin-bottom:28px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .form-group{margin-bottom:16px}
+    .form-group label{display:block;font-size:13px;font-weight:500;color:rgba(255,255,255,.65);margin-bottom:7px}
+    .form-group input,.form-group select,.form-group textarea{
+      width:100%;background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.15);
+      border-radius:10px;padding:13px 16px;
+      font-family:'Outfit',sans-serif;font-size:14px;color:#fff;
+      outline:none;transition:all .25s ease;
+    }
+    .form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.35)}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+      border-color:var(--p-light);background:rgba(255,255,255,0.12);
+      box-shadow:0 0 0 3px rgba(91,45,142,0.2);
+    }
+    .form-group select option{background:#3D1A66;color:#fff}
+    .form-group textarea{resize:vertical;min-height:90px}
+    .btn-submit{
+      width:100%;background:linear-gradient(135deg,#fff,#F3EDF9);
+      color:var(--p);font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;
+      padding:16px;border:none;border-radius:12px;cursor:pointer;
+      transition:all .25s ease;display:flex;align-items:center;justify-content:center;gap:10px;
+    }
+    .btn-submit:hover{background:#fff;transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,0.25)}
+
+    /* ─── TESTIMONIALS ─── */
+    #testimonials{background:var(--off)}
+    .testi-header{text-align:center;margin-bottom:56px}
+    .testi-header .section-sub{margin:0 auto}
+    .testi-header .divider{margin:20px auto}
+    .testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .testi-card{
+      background:#fff;border:1px solid var(--border);border-radius:20px;
+      padding:32px 28px;position:relative;transition:all .3s ease;
+    }
+    .testi-card:hover{border-color:var(--p-light);box-shadow:var(--shadow);transform:translateY(-4px)}
+    .testi-card .quote{
+      font-size:48px;color:var(--p-pale);font-family:Georgia,serif;
+      line-height:.8;margin-bottom:16px;
+    }
+    .testi-card p{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:24px}
+    .testi-author{display:flex;align-items:center;gap:14px}
+    .testi-avatar{
+      width:48px;height:48px;border-radius:50%;
+      background:var(--p-pale);display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+    .testi-avatar i{color:var(--p);font-size:22px}
+    .testi-author h5{font-size:15px;font-weight:600;color:var(--text)}
+    .testi-author span{font-size:12px;color:var(--muted)}
+    .stars{color:#F59E0B;font-size:13px;margin-bottom:4px}
+
+    /* ─── CONTACT ─── */
+    #contact{background:#fff}
+    .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
+    .contact-info h3{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--text);margin-bottom:16px}
+    .contact-info h3 em{font-style:italic;color:var(--p)}
+    .contact-info p{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:36px}
+    .contact-items{display:flex;flex-direction:column;gap:20px}
+    .contact-item{display:flex;align-items:flex-start;gap:16px}
+    .ci-icon{
+      width:48px;height:48px;background:var(--p-pale);
+      border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .ci-icon i{color:var(--p);font-size:18px}
+    .ci-text h5{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+    .ci-text p{font-size:14px;color:var(--muted)}
+    .contact-socials{display:flex;gap:12px;margin-top:36px}
+    .social-btn{
+      width:44px;height:44px;border-radius:12px;
+      background:var(--p-pale);display:flex;align-items:center;justify-content:center;
+      color:var(--p);font-size:17px;text-decoration:none;
+      transition:all .25s ease;
+    }
+    .social-btn:hover{background:var(--p);color:#fff;transform:translateY(-3px)}
+    .contact-form-wrap{
+      background:var(--off);border:1px solid var(--border);
+      border-radius:24px;padding:40px 36px;
+    }
+    .contact-form-wrap h4{font-size:22px;font-weight:600;color:var(--text);margin-bottom:6px}
+    .contact-form-wrap > p{font-size:14px;color:var(--muted);margin-bottom:28px}
+    .cf .form-group label{color:var(--muted)}
+    .cf .form-group input,.cf .form-group select,.cf .form-group textarea{
+      background:#fff;border:1px solid var(--border);color:var(--text);
+    }
+    .cf .form-group input::placeholder,.cf .form-group textarea::placeholder{color:#bbb}
+    .cf .form-group input:focus,.cf .form-group select:focus,.cf .form-group textarea:focus{
+      border-color:var(--p);box-shadow:0 0 0 3px rgba(91,45,142,0.1);
+    }
+    .cf .form-group select option{background:#fff;color:var(--text)}
+    .btn-submit-cf{
+      width:100%;background:linear-gradient(135deg,var(--p),var(--p-mid));
+      color:#fff;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;
+      padding:16px;border:none;border-radius:12px;cursor:pointer;
+      transition:all .25s ease;display:flex;align-items:center;justify-content:center;gap:10px;
+    }
+    .btn-submit-cf:hover{background:linear-gradient(135deg,var(--p-dark),var(--p));transform:translateY(-2px);box-shadow:0 10px 28px rgba(91,45,142,0.35)}
+
+    /* ─── MAP ─── */
+    .map-section{height:420px;position:relative}
+    .map-section iframe{width:100%;height:100%;border:0;display:block}
+
+    /* ─── FOOTER ─── */
+    footer{
+      background:linear-gradient(180deg,#1A0A2E,#0D0618);
+      padding:80px 40px 0;
+    }
+    .footer-grid{
+      max-width:1280px;margin:0 auto;
+      display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:60px;
+      padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .footer-brand .fb-logo{display:flex;align-items:center;gap:10px;margin-bottom:20px;text-decoration:none}
+    .footer-brand .fb-logo img{height:46px;width:auto;object-fit:contain;filter:brightness(0) invert(1)}
+    .footer-brand p{font-size:14px;color:rgba(255,255,255,.45);line-height:1.75;margin-bottom:24px}
+    .footer-contact-items{display:flex;flex-direction:column;gap:12px}
+    .footer-contact-items li{
+      display:flex;align-items:flex-start;gap:10px;
+      font-size:13px;color:rgba(255,255,255,.45);list-style:none;
+    }
+    .footer-contact-items li i{color:var(--p-light);font-size:13px;margin-top:2px;flex-shrink:0}
+    .footer-col h5{font-size:14px;font-weight:600;color:#fff;margin-bottom:20px;letter-spacing:.03em}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .footer-col ul li a{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;transition:.2s;display:flex;align-items:center;gap:6px}
+    .footer-col ul li a:hover{color:var(--p-light);padding-left:3px}
+    .footer-col ul li a i{font-size:10px}
+    .newsletter-form{display:flex;gap:0;margin-top:4px}
+    .newsletter-form input{
+      flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+      border-right:none;border-radius:10px 0 0 10px;padding:11px 14px;
+      font-family:'Outfit',sans-serif;font-size:13px;color:#fff;outline:none;
+    }
+    .newsletter-form input::placeholder{color:rgba(255,255,255,.3)}
+    .newsletter-form button{
+      background:var(--p);border:none;padding:11px 16px;border-radius:0 10px 10px 0;
+      color:#fff;cursor:pointer;font-size:14px;transition:.25s;
+    }
+    .newsletter-form button:hover{background:var(--p-mid)}
+    .footer-socials{display:flex;gap:10px;margin-top:20px}
+    .footer-social{
+      width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.06);
+      display:flex;align-items:center;justify-content:center;
+      color:rgba(255,255,255,.4);font-size:15px;text-decoration:none;transition:.25s;
+    }
+    .footer-social:hover{background:var(--p);color:#fff}
+    .footer-bottom{
+      max-width:1280px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:28px 0;flex-wrap:wrap;gap:12px;
+    }
+    .footer-bottom p{font-size:13px;color:rgba(255,255,255,.3)}
+    .footer-bottom a{color:rgba(255,255,255,.3);text-decoration:none;font-size:13px;transition:.2s}
+    .footer-bottom a:hover{color:var(--p-light)}
+    .footer-bottom-links{display:flex;gap:24px}
+
+    /* ─── SCROLL TOP ─── */
+    #scrollTop{
+      position:fixed;bottom:32px;right:32px;z-index:999;
+      width:48px;height:48px;border-radius:50%;
+      background:var(--p);color:#fff;border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;font-size:18px;
+      box-shadow:0 6px 20px rgba(91,45,142,0.4);
+      opacity:0;transform:translateY(20px);
+      transition:all .3s ease;pointer-events:none;
+    }
+    #scrollTop.show{opacity:1;transform:translateY(0);pointer-events:all}
+    #scrollTop:hover{background:var(--p-dark);transform:translateY(-3px)}
+
+    /* ─── FADE IN ON SCROLL ─── */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:1024px){
+      .hero-content{grid-template-columns:1fr;gap:48px;padding-top:120px}
+      .hero-cards{display:grid;grid-template-columns:1fr 1fr}
+      .stat-row{flex-direction:row}
+      .about-grid{grid-template-columns:1fr;gap:48px}
+      .appt-grid{grid-template-columns:1fr;gap:48px}
+      .contact-grid{grid-template-columns:1fr;gap:48px}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .testi-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      section{padding:72px 24px}
+      .hero-content{padding:120px 24px 60px}
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .services-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr;gap:32px}
+      .avail-inner{flex-direction:column;text-align:center}
+      .avail-checks{align-items:center}
+      .hero-cards{display:flex;flex-direction:column}
+      .stat-row{flex-direction:row}
+      footer{padding:60px 24px 0}
+      .nav-inner{padding:16px 24px}
+      .form-row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" onclick="closeMobile()"><i class="fa fa-times"></i></span>
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#appointment" onclick="closeMobile()">Appointment</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="store.html" onclick="closeMobile()">Shop</a>
+</div>
+
+<!-- ─── NAVBAR ─── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#home">
+      <img src="img/logo.jpg" alt="thepurpleMedcare Logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#appointment">Appointment</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="store.html">Shop</a></li>
+      <li><a href="#appointment" class="nav-cta">Book Now</a></li>
+    </ul>
+    <div class="hamburger" onclick="openMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="home">
+  <div class="hero-bg-shapes">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="tag"><i class="fa fa-circle-check"></i> Online Healthcare, Made Holistic</div>
+      <h1>Your Health, <em>Our</em> Highest Priority</h1>
+      <p>Experience round-the-clock medical care and modern health support designed to keep you thriving — right from your phone.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary"><i class="fa fa-stethoscope"></i> Our Services</a>
+        <a href="#appointment" class="btn-outline"><i class="fa fa-calendar-check"></i> Book Appointment</a>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="num">24<span>/7</span></div>
+          <div class="label">Always Available</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">500<span>+</span></div>
+          <div class="label">Doctors & Specialists</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap"><i class="fa fa-user-doctor"></i></div>
+        <div class="fc-text">
+          <h5>Licensed Doctors On Demand</h5>
+          <p>No queues. No waiting rooms. Instant access.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap"><i class="fa fa-shield-heart"></i></div>
+        <div class="fc-text">
+          <h5>Confidential & Insured Services</h5>
+          <p>Your privacy and peace of mind come first.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap"><i class="fa fa-truck-medical"></i></div>
+        <div class="fc-text">
+          <h5>Mobile Pharmacy Delivery</h5>
+          <p>Prescriptions delivered to your doorstep.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img-main">
+          <img src="img/me.jpeg" alt="Why thepurpleMedcare">
+          <div class="about-float-card">
+            <div class="afc-icon"><i class="fa fa-award"></i></div>
+            <div>
+              <h5>10+ Years</h5>
+              <p>of trusted healthcare</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text reveal">
+        <div class="section-tag"><i class="fa fa-info-circle"></i> Who We Are</div>
+        <h2 class="section-title">Healthcare that <em>Truly</em> Cares</h2>
+        <div class="divider"></div>
+        <p class="section-sub">thepurpleMedcare is committed to helping individuals and families thrive through accessible, holistic, and around-the-clock healthcare services you can trust. We believe great healthcare should be as close as your phone.</p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pi"><i class="fa fa-bullseye"></i></div>
+            <div>
+              <h5>Our Mission</h5>
+              <p>To make quality healthcare simple, accessible, and reliable through digital consultations,
+                 health education, and trusted home medical solutions.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pi"><i class="fa fa-eye"></i></div>
+            <div>
+              <h5>Our Vision</h5>
+              <p>To become a leading digital healthcare platform delivering accessible, excellent,
+                 and patient-centered care to anyone, anytime, anywhere.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pi"><i class="fa fa-handshake"></i></div>
+            <div>
+              <h5>Our Values</h5>
+              <p>Integrity · Empathy · Accessibility · Innovation · Excellence</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AVAILABILITY STRIP ─── -->
+<div class="avail-strip">
+  <div class="avail-inner">
+    <div class="avail-title">
+      <h2>Always Here For You</h2>
+      <p>Round-the-clock care, every single day.</p>
+    </div>
+    <div class="avail-checks">
+      <div class="avail-check"><i class="fa fa-circle-check"></i> Healthcare support anytime, any day</div>
+      <div class="avail-check"><i class="fa fa-circle-check"></i> Licensed doctors on demand</div>
+      <div class="avail-check"><i class="fa fa-circle-check"></i> No queues, no waiting rooms</div>
+      <div class="avail-check"><i class="fa fa-circle-check"></i> Available 7 days a week</div>
+    </div>
+    <div class="avail-cta">
+      <a href="#appointment"><i class="fa fa-calendar-plus"></i> Book an Appointment</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SERVICES ─── -->
+<section id="services">
+  <div class="container">
+    <div class="services-header reveal">
+      <div>
+        <div class="section-tag"><i class="fa fa-briefcase-medical"></i> What We Offer</div>
+        <h2 class="section-title">Our <em>Services</em></h2>
+        <div class="divider"></div>
+      </div>
+      <p style="max-width:380px;color:var(--muted);font-size:15px;line-height:1.7">Comprehensive healthcare solutions tailored to your individual needs and lifestyle.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-stethoscope"></i></div>
+        <h4>Accurate Diagnosis & Treatment</h4>
+        <p>Expert diagnosis and targeted treatment plans. Care you can trust delivered by licensed professionals.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-user-doctor"></i></div>
+        <h4>Medical Counseling & Education</h4>
+        <p>One-on-one health counseling sessions with medical experts to guide your wellness journey.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-calendar-check"></i></div>
+        <h4>Specialist Consultations</h4>
+        <p>Book direct consultations with specialists across every medical field — quickly and easily.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-rotate"></i></div>
+        <h4>Follow-up Appointments</h4>
+        <p>Regular scheduled follow-ups to monitor your progress and adjust care plans as needed.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-truck-medical"></i></div>
+        <h4>Mobile Pharmacy</h4>
+        <p>Order prescriptions online and have them delivered directly to your home or office.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-newspaper"></i></div>
+        <h4>Health Articles</h4>
+        <p>Stay informed with curated, expert-written health articles matched to your conditions.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-location-dot"></i></div>
+        <h4>Find Nearby Care</h4>
+        <p>Instantly locate hospitals, diagnostic labs, and clinics close to you when you need them.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-shield-heart"></i></div>
+        <h4>Confidential & Insured</h4>
+        <p>All services are fully confidential and covered under our comprehensive insurance options.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="sc-icon"><i class="fa fa-brain"></i></div>
+        <h4>Mental Health Support</h4>
+        <p>Compassionate mental health care — therapy, counseling, and crisis support available 24/7.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── APPOINTMENT ─── -->
+<section id="appointment">
+  <div class="appt-bg"><div class="dot"></div><div class="dot"></div></div>
+  <div class="container">
+    <div class="appt-grid">
+      <div class="appt-info reveal">
+        <div class="section-tag"><i class="fa fa-calendar-plus"></i> Get Started</div>
+        <h2 class="section-title">Book Your <em>Appointment</em></h2>
+        <div class="divider"></div>
+        <p class="section-sub">Schedule a consultation with one of our licensed doctors. It only takes 2 minutes — we'll handle the rest.</p>
+        <div class="appt-perks">
+          <div class="appt-perk"><i class="fa fa-circle-check"></i> Instant confirmation via email & SMS</div>
+          <div class="appt-perk"><i class="fa fa-circle-check"></i> Choose your preferred specialist</div>
+          <div class="appt-perk"><i class="fa fa-circle-check"></i> Online or in-person options available</div>
+          <div class="appt-perk"><i class="fa fa-circle-check"></i> No hidden fees or charges</div>
+          <div class="appt-perk"><i class="fa fa-circle-check"></i> Reschedule anytime, no hassle</div>
+        </div>
+      </div>
+      <div class="appt-form reveal">
+        <h3>Schedule a Visit</h3>
+        <p>Fill in your details and we'll confirm within 24 hours.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="e.g. John Doe">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+234 xxx xxx xxxx">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@email.com">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Service Type</label>
+            <select>
+              <option value="">Select a service</option>
+              <option>Diagnosis & Treatment</option>
+              <option>Medical Counseling</option>
+              <option>Specialist Consultation</option>
+              <option>Follow-up Appointment</option>
+              <option>Mental Health Support</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Preferred Date</label>
+            <input type="date">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Additional Notes</label>
+          <textarea placeholder="Briefly describe your condition or query…"></textarea>
+        </div>
+        <button class="btn-submit"><i class="fa fa-paper-plane"></i> Send Request</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testi-header reveal">
+      <div class="section-tag" style="margin:0 auto 16px"><i class="fa fa-comments"></i> Patient Stories</div>
+      <h2 class="section-title">What Our <em>Patients</em> Say</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Real experiences from real people who trusted thepurpleMedcare with their health.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="quote">"</div>
+        <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+        <p>The care I received at thepurpleMedcare was outstanding. The staff were attentive, professional, and made my entire eye treatment journey smooth and genuinely reassuring.</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><i class="fa fa-user"></i></div>
+          <div>
+            <h5>Amanda Smith</h5>
+            <span>Myopia Patient</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="quote">"</div>
+        <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+        <p>After my accident, I thought recovery would be impossible. Thanks to thepurpleMedcare's expert orthopedic team, I'm back on my feet and feeling stronger than ever.</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><i class="fa fa-user"></i></div>
+          <div>
+            <h5>James Johnson</h5>
+            <span>Orthopedic Patient</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="quote">"</div>
+        <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-stroke"></i></div>
+        <p>I was diagnosed with early-stage cancer and received timely, compassionate care from thepurpleMedcare. Their dedication and expertise genuinely saved my life.</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><i class="fa fa-user"></i></div>
+          <div>
+            <h5>Linda Okoro</h5>
+            <span>Cancer Survivor</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="quote">"</div>
+        <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+        <p>thepurpleMedcare helped me treat a severe skin condition I had battled for years. Their dermatologists are truly knowledgeable, warm, and kind throughout the whole process.</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><i class="fa fa-user"></i></div>
+          <div>
+            <h5>Michael Ade</h5>
+            <span>Dermatology Patient</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="section-tag"><i class="fa fa-envelope"></i> Get In Touch</div>
+        <h3>We'd Love to <em>Hear</em> From You</h3>
+        <div class="divider"></div>
+        <p>Have questions about our services? Want to partner with us? Our team is ready to help — just reach out.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa fa-location-dot"></i></div>
+            <div class="ci-text">
+              <h5>Our Address</h5>
+              <p>Off Tombia Extension, GRA Phase 2, Port Harcourt.</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa fa-phone"></i></div>
+            <div class="ci-text">
+              <h5>Phone</h5>
+              <p>+234 70 45 755 324</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa fa-envelope"></i></div>
+            <div class="ci-text">
+              <h5>Email</h5>
+              <p>support@thepurplemedcare.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa fa-clock"></i></div>
+            <div class="ci-text">
+              <h5>Hours</h5>
+              <p>24 hours a day, 7 days a week</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-socials">
+          <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal cf">
+        <h4>Send Us a Message</h4>
+        <p>We'll get back to you within a few hours.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" placeholder="How can we help?">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea style="min-height:120px" placeholder="Write your message here…"></textarea>
+        </div>
+        <button class="btn-submit-cf"><i class="fa fa-paper-plane"></i> Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MAP ─── -->
+<div class="map-section">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253682.45932537052!2d3.1438710000000003!3d6.5480349999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos!5e0!3m2!1sen!2sng!4v1710000000000" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="fb-logo" href="#home">
+        <img src="img/logo1.png" alt="thepurpleMedcare">
+      </a>
+      <p>thepurpleMedcare is committed to helping individuals and families thrive through accessible, holistic, and around-the-clock healthcare services you can trust.</p>
+      <ul class="footer-contact-items">
+        <li><i class="fa fa-location-dot"></i> Off Tombia Extension, GRA Phase 2, Port Harcourt.</li>
+        <li><i class="fa fa-phone"></i> +234 812 345 6789</li>
+        <li><i class="fa fa-envelope"></i> support@thepurplemedcare.com</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#home"><i class="fa fa-chevron-right"></i> Home</a></li>
+        <li><a href="#about"><i class="fa fa-chevron-right"></i> About Us</a></li>
+        <li><a href="#services"><i class="fa fa-chevron-right"></i> Our Services</a></li>
+        <li><a href="#appointment"><i class="fa fa-chevron-right"></i> Appointments</a></li>
+        <li><a href="#testimonials"><i class="fa fa-chevron-right"></i> Testimonials</a></li>
+        <li><a href="#contact"><i class="fa fa-chevron-right"></i> Contact</a></li>
+        <li><a href="store.html"><i class="fa fa-chevron-right"></i> Shop</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Our Services</h5>
+      <ul>
+        <li><a href="#services"><i class="fa fa-chevron-right"></i> Diagnosis & Treatment</a></li>
+        <li><a href="#services"><i class="fa fa-chevron-right"></i> Medical Counseling</a></li>
+        <li><a href="#services"><i class="fa fa-chevron-right"></i> Specialist Consults</a></li>
+        <li><a href="#services"><i class="fa fa-chevron-right"></i> Mobile Pharmacy</a></li>
+        <li><a href="#services"><i class="fa fa-chevron-right"></i> Mental Health</a></li>
+        <li><a href="#services"><i class="fa fa-chevron-right"></i> Find Nearby Care</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Newsletter</h5>
+      <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:16px">Get health tips and updates delivered straight to your inbox.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Enter your email">
+        <button><i class="fa fa-paper-plane"></i></button>
+      </div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="footer-social"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="footer-social"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="footer-social"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 THE PURPLE HEALTH INITIATIVE. All Rights Reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Terms of Use</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCROLL TO TOP ─── -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fa fa-arrow-up"></i>
+</button>
+
+<!-- ─── TAWK.TO ─── -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/688996817058a0192737cb1d/1j1cn7qs6';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+
+<script>
+  // ─── NAVBAR SCROLL
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+    document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 300);
+  });
+
+  // ─── ACTIVE NAV LINK
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if(active) active.classList.add('active');
+      }
+    });
+  }, {threshold:0.5});
+  sections.forEach(s => observer.observe(s));
+
+  // ─── MOBILE MENU
+  function openMobile(){ document.getElementById('mobileMenu').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeMobile(){ document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow=''; }
+
+  // ─── REVEAL ON SCROLL
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => {
+      if(e.isIntersecting){
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(el => revealObs.observe(el));
+</script>
+</body>
+</html>
